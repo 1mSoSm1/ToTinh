@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>💌 Dành riêng cho em</title>
-<meta name="description" content="Một trang web anh làm riêng cho em">
+<title>💌 Dành riêng cho cậu</title>
+<meta name="description" content="Một trang web anh làm riêng cho 'Minh Châu'">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <!--
@@ -564,7 +564,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
     <div class="i-ring"></div>
     <div class="i-heart">💖</div>
   </div>
-  <div class="i-title">Anh có điều<br>muốn nói với em...</div>
+  <div class="i-title">Tớ có điều<br>muốn nói với cậu...</div>
   <div class="i-tap">✨ Chạm để xem ✨</div>
 </div>
 
@@ -596,7 +596,7 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
           </div>
         </div>
 
-        <div class="hero-name" id="heroName">Chúc mừng sinh nhật em! 🎂</div>
+        <div class="hero-name" id="heroName">Chúc mừng sinh nhật cậu! 🎂</div>
 
         <div class="msg-card">
           <div class="msg-text" id="msgText">
@@ -611,8 +611,8 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
     <div class="slide" id="slide2">
       <div class="sphere-slide-inner">
 
-        <div class="sphere-title">💫 Kỷ niệm của chúng mình</div>
-        <div class="sphere-sub">🖐 Kéo để xoay · Bấm ảnh để xem to</div>
+        <div class="sphere-title">💫 Ban đầu mình định nhắn tin với cậu và tìm cách xin mỗi ngày 1 ảnh cơ</div>
+        <div class="sphere-sub">🖐 Kéo để xoay · Bấm ảnh để xem to- nếu cậu không thích hoặc thấy mình phiền thì dừng ở trang này cho mình nhé!</div>
 
         <div id="sphereWrap">
           <div id="sphereEmpty" class="sphere-empty-msg" style="display:none">
@@ -641,10 +641,10 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
           <div id="confMain">
             <div class="conf-q" id="confQ"></div>
             <div class="conf-btns" id="confBtns">
-              <button class="btn-yes" onclick="handleYes()">💖 Có! Em đồng ý!</button>
+              <button class="btn-yes" onclick="handleYes()">💖 Có! Tớ đồng ý!</button>
               <button class="btn-no" id="btnNo"
                 onmouseenter="runAway()"
-                ontouchstart="runAway()">Để em nghĩ đã...</button>
+                ontouchstart="runAway()">Để mình nghĩ đã...</button>
             </div>
           </div>
           <div class="conf-result" id="confResult">
@@ -687,26 +687,29 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
 /* ============================================================
    ⚙️  CẤU HÌNH — Chỉnh sửa tại đây
 ============================================================ */
-const NAME      = 'Em';           // Tên người nhận
+const NAME      = 'Minh Châu';           // Tên người nhận
 const HERO_IMG  = 'img/man.jpg';  // Ảnh chính (đặt tên file đúng)
 
 const MESSAGE = `Chúc ${NAME} sinh nhật thật vui và hạnh phúc! 🌸
 
-Mỗi ngày có em là mỗi ngày anh cảm thấy cuộc sống thật đáng sống.
-Em là ánh sáng le lói trong những ngày anh tối tăm nhất.
-Cảm ơn em đã xuất hiện trong cuộc đời anh. 💕
+Đáng lẽ cái này mình muốn để tạo bất ngờ cho cậu lúc sinh nhật cơ, nhưng mà thật sự như mô tả tớ viết trong game:
+"tớ đang phân vân giữa việc tiếp tục hay là dừng lại, cậu như 1 cơn gió vậy khi gần khi xa, đôi lúc tớ cảm thấy rất gần cậu nhưng đôi lúc tớ cảm thấy thật xa."
+Tớ là 1 con người lý trí trong công việc nhưng lại rất cảm xúc trong tình cảm nên thích cậu khiến trái tim tớ đang bị điều khiển bởi cậu, cậu làm tớ thật sự không biết như nào.
+Tớ không biết cậu có thích tớ và muốn tớ tham gia vào cuộc sống thật sự của cậu không thay vì như hiện tại💕
 
-Ngày hôm nay — anh muốn nói thật lòng... 🌹`;
+Ngày hôm nay — tớ muốn nói thật lòng...  🌹`;
 
-const CONFESSION = `Em ơi... Anh thích em thật rồi.\nEm có muốn làm người yêu của anh không? 🥺`;
+const CONFESSION = `Minh Châu ơi... Tớ thích cậu thật rồi.\n Cậu có muốn làm người yêu của mình không? 🥺`;
 
-const YES_REPLY  = `Em đồng ý rồi! Anh là người hạnh phúc nhất thế giới!\nMãi mãi yêu em! 💖💖💖`;
+const YES_REPLY  = `Cậu đồng ý rồi! Mình là người hạnh phúc nhất thế giới!\nMãi mãi yêu cậu! 💖💖💖`;
 
 const TIMELINE_ITEMS = [
-  { icon:'🌟', tag:'Lần đầu gặp nhau',     desc:'Khoảnh khắc đó, anh không biết rằng em sẽ thay đổi cả cuộc đời anh...' },
-  { icon:'💬', tag:'Những tin nhắn đầu tiên', desc:'Anh hay nhìn điện thoại chờ tin em, mỗi lần em nhắn là tim anh đập nhanh hơn. 🥰' },
-  { icon:'😊', tag:'Khi anh nhận ra',        desc:'Em đã chiếm một góc rất lớn trong tim anh mà anh không hề hay biết. 💗' },
-  { icon:'🌹', tag:'Ngày hôm nay',           desc:'Anh muốn nói ra tất cả những gì trong tim dành cho em. 💖' },
+  { icon:'🌟', tag:'Lần đầu tiên cảm thấy thích cậu',     desc:'Mình không nhớ rõ nữa nhưng chắc lúc xác định là lúc Khải nhắn tin bảo cậu thích mình...' },
+  { icon:'💬', tag:'Những tin nhắn', desc:'Lúc đầu mình cũng ít chơi game cùng để ý, nhưng rồi hằng ngày mình vào game chỉ để chờ cậu onl. 🥰' },
+  { icon:'😊', tag:'Khi mình nhận ra',        desc:'Cậu đã chiếm trọn cảm xúc về yêu và thích của mình, chờ tin nhắn của cậu chỉ muốn biết và hiểu thêm về cậu. 💗' },
+  { icon:'🌹', tag:'Ngày hôm nay',           desc:'Mình muốn biết tất cả về cậu, muốn được tham gia cuộc sống của cậu💖' },
+   { icon:'🥰', tag:'Cậu nghĩ sao',           desc:'Nếu cậu thấy mình như nào thì có thể nói rõ được không? Mình thật sự không biết cậu nghĩ gì về mình hay như thế nào. Và nếu không muốn cậu không cần kéo xuống và trả lời mình được không.' },
+' },
 ];
 /* ============================================================ */
 
