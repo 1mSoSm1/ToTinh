@@ -725,8 +725,6 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
   <div class="pin-wrap">
     <div class="pin-icon">🔐</div>
     <div class="pin-title">Nhập ngày sinh của cậu<br>để xem điều bất ngờ 🌸</div>
-    <div class="pin-sub">Định dạng: DDMMYYYY</div>
-
     <!-- Dots hiển thị số ký tự đã nhập -->
     <div class="pin-dots" id="pinDots"></div>
 
@@ -914,7 +912,7 @@ const MESSAGE = `Chúc ${NAME} sinh nhật thật vui và hạnh phúc! 🌸
 
 Tớ không rõ là ngoài đời cậu như nào, tớ cũng không biết là cậu vì sao mà không muốn cho tớ biết thông tin ngoài đời của cậu.
 Tớ cũng biết cậu muốn che giấu mình thông tin ngoài đời vì 1 số vấn đề, nhưng nếu được cậu có thể thành thật với mình (vì có thể mình biết vấn đề đó là gì),
-nên mình không để ảnh cậu đâu cậu tự tải lên nhớ ><
+nên mình không để ảnh cậu đâu cậu tự tải lên nhớ><
 Tớ chỉ biết rằng mình muốn được tham gia vào cuộc sống của cậu, được cùng cậu khám phá và tìm hiểu nhau nhiều hơn mỗi ngày 💕
 
 Ngày hôm nay — tớ muốn nói thật lòng...  🌹`;
@@ -1003,9 +1001,9 @@ function pinSubmit(){
   if(pinValue.length < PIN_LEN) return;
   if(pinValue === PIN){
     // Đúng → vào app
-    // document.getElementById('pinError').textContent = '✓ Đúng rồi! 🌸';
-    // document.getElementById('pinError').style.color = '#a8ff78';
-    // setTimeout(enterApp, 700);
+    document.getElementById('pinError').textContent = '✓ Đúng rồi! 🌸';
+    document.getElementById('pinError').style.color = '#a8ff78';
+    setTimeout(enterApp, 700);
   } else {
     // Sai → rung + xóa
     const errEl = document.getElementById('pinError');
