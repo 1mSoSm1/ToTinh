@@ -112,6 +112,125 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
 /* =====================
+   PIN SCREEN
+===================== */
+#intro { cursor:default; }
+.pin-wrap {
+  display:flex; flex-direction:column; align-items:center;
+  gap:20px; width:100%; max-width:340px; padding:0 20px;
+}
+.pin-icon {
+  font-size:52px;
+  filter:drop-shadow(0 0 28px rgba(255,45,111,.9));
+  animation:hbeat 1.3s ease-in-out infinite;
+}
+.pin-title {
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(1.4rem,5vw,2rem);
+  color:#ffe0ec; text-align:center; line-height:1.35;
+}
+.pin-sub {
+  font-family:'Quicksand',sans-serif;
+  font-size:.8rem; color:rgba(255,180,210,.5);
+  letter-spacing:2px; text-transform:uppercase;
+}
+.pin-dots {
+  display:flex; gap:12px; align-items:center; justify-content:center;
+  min-height:22px;
+}
+.pin-dot {
+  width:14px; height:14px; border-radius:50%;
+  border:2px solid rgba(255,107,157,.5);
+  background:transparent;
+  transition:background .2s, border-color .2s, transform .15s;
+}
+.pin-dot.filled {
+  background:#ff6b9d;
+  border-color:#ff6b9d;
+  box-shadow:0 0 10px rgba(255,107,157,.7);
+  transform:scale(1.15);
+}
+.pin-pad {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:12px; width:100%;
+}
+.pin-btn {
+  aspect-ratio:1; border-radius:50%;
+  border:2px solid rgba(255,107,157,.25);
+  background:rgba(255,255,255,.04);
+  color:#ffe0ec; font-family:'Quicksand',sans-serif;
+  font-size:1.4rem; font-weight:700;
+  cursor:pointer; transition:all .15s ease;
+  display:flex; align-items:center; justify-content:center;
+  backdrop-filter:blur(6px);
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+.pin-btn:active, .pin-btn.pressed {
+  background:rgba(255,45,111,.35);
+  border-color:#ff6b9d;
+  transform:scale(.92);
+  box-shadow:0 0 20px rgba(255,107,157,.4);
+}
+.pin-btn.del { font-size:1.1rem; color:rgba(255,150,180,.7); }
+.pin-btn.ok  {
+  background:linear-gradient(135deg,#ff2d6f,#c2185b);
+  border-color:#ff2d6f; color:#fff;
+  box-shadow:0 4px 20px rgba(255,45,111,.5);
+  opacity:.4; pointer-events:none;
+  transition:opacity .3s, transform .15s, box-shadow .15s;
+}
+.pin-btn.ok.ready { opacity:1; pointer-events:auto; }
+.pin-error {
+  font-family:'Quicksand',sans-serif;
+  font-size:.85rem; color:#ff6b9d;
+  min-height:20px; letter-spacing:1px;
+  animation:pinShake .4s ease;
+}
+@keyframes pinShake {
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-8px)}
+  40%{transform:translateX(8px)}
+  60%{transform:translateX(-5px)}
+  80%{transform:translateX(5px)}
+}
+
+/* =====================
+   SLIDE 3 — TÂM SỰ
+===================== */
+.tamsu-card {
+  width:100%; margin-bottom:18px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,107,157,.18);
+  border-radius:20px; padding:22px 22px 20px;
+  backdrop-filter:blur(14px);
+  position:relative; overflow:hidden;
+  text-align:left;
+  transition:border-color .3s;
+}
+.tamsu-card:hover { border-color:rgba(255,107,157,.38); }
+.tamsu-card::before {
+  content:''; position:absolute;
+  inset:0; border-radius:20px;
+  background:radial-gradient(circle at 0% 0%,rgba(255,107,157,.06),transparent 60%);
+  pointer-events:none;
+}
+.tamsu-icon {
+  font-size:1.5rem; margin-bottom:10px; display:block;
+}
+.tamsu-title {
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(1.1rem,4vw,1.4rem);
+  color:#ff6b9d; margin-bottom:10px; font-weight:700;
+}
+.tamsu-text {
+  font-family:'Quicksand',sans-serif;
+  font-size:clamp(.88rem,3vw,1rem);
+  color:rgba(255,210,230,.88); line-height:1.85;
+  position:relative; z-index:1;
+}
+
+/* =====================
    SLIDES RAIL
 ===================== */
 #rail {
@@ -212,6 +331,18 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
   border-radius:50%; overflow:hidden;
   background:radial-gradient(circle,#240038,#080014);
   border:2px solid rgba(255,107,157,.2);
+  cursor:pointer;
+}
+.h-frame:hover .h-upload-hint { opacity:1; }
+.h-upload-hint {
+  position:absolute; inset:0; border-radius:50%;
+  background:rgba(0,0,0,.45);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:4px;
+  opacity:0; transition:opacity .25s;
+  color:#fff; font-family:'Quicksand',sans-serif;
+  font-size:.72rem; font-weight:600; letter-spacing:1px;
+  pointer-events:none; z-index:3;
 }
 .h-frame img {
   width:100%; height:100%; object-fit:cover; display:block;
@@ -302,9 +433,41 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
   line-height:1.8; font-size:.9rem;
 }
 .sphere-empty-msg strong { color:rgba(255,107,157,.7); }
-.sphere-count {
-  color:rgba(255,200,220,.4); font-size:.78rem;
-  margin-top:10px; letter-spacing:2px;
+
+/* Upload button */
+.upload-btn {
+  display:inline-flex; align-items:center; gap:10px;
+  padding:16px 32px; border-radius:50px;
+  background:linear-gradient(135deg,rgba(255,45,111,.18),rgba(198,81,205,.18));
+  border:2px dashed rgba(255,107,157,.45);
+  color:#ff9dc8; font-family:'Quicksand',sans-serif;
+  font-size:1rem; font-weight:600;
+  cursor:pointer; transition:all .25s ease;
+  backdrop-filter:blur(8px);
+  -webkit-tap-highlight-color:transparent;
+}
+.upload-btn:hover, .upload-btn:active {
+  background:linear-gradient(135deg,rgba(255,45,111,.32),rgba(198,81,205,.28));
+  border-color:#ff6b9d;
+  color:#fff;
+  box-shadow:0 0 30px rgba(255,107,157,.35);
+  transform:scale(1.04);
+}
+.upload-btn svg { flex-shrink:0; }
+.upload-fab {
+  position:absolute; bottom:10px; right:10px;
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(255,45,111,.75); border:none;
+  color:#fff; font-size:1.3rem; line-height:1;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 16px rgba(255,45,111,.45);
+  transition:transform .2s, box-shadow .2s;
+  backdrop-filter:blur(6px);
+  z-index:10;
+}
+.upload-fab:hover, .upload-fab:active {
+  transform:scale(1.12);
+  box-shadow:0 6px 24px rgba(255,45,111,.7);
 }
 
 /* =====================
@@ -556,16 +719,35 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
 <div class="fx-layer" id="heartLayer"></div>
 
 <!-- ========================
-     INTRO SCREEN
+     PIN SCREEN
 ======================== -->
-<div id="intro" onclick="enterApp()" tabindex="0" role="button" aria-label="Nhấn để mở">
-  <div class="intro-pulse">
-    <div class="i-ring"></div>
-    <div class="i-ring"></div>
-    <div class="i-heart">💖</div>
+<div id="intro" tabindex="0" aria-label="Nhập mã PIN">
+  <div class="pin-wrap">
+    <div class="pin-icon">🔐</div>
+    <div class="pin-title">Nhập ngày sinh của cậu<br>để xem điều bất ngờ 🌸</div>
+    <div class="pin-sub">Định dạng: DDMMYYYY</div>
+
+    <!-- Dots hiển thị số ký tự đã nhập -->
+    <div class="pin-dots" id="pinDots"></div>
+
+    <!-- Bàn phím số -->
+    <div class="pin-pad">
+      <button class="pin-btn" onclick="pinPress('1')">1</button>
+      <button class="pin-btn" onclick="pinPress('2')">2</button>
+      <button class="pin-btn" onclick="pinPress('3')">3</button>
+      <button class="pin-btn" onclick="pinPress('4')">4</button>
+      <button class="pin-btn" onclick="pinPress('5')">5</button>
+      <button class="pin-btn" onclick="pinPress('6')">6</button>
+      <button class="pin-btn" onclick="pinPress('7')">7</button>
+      <button class="pin-btn" onclick="pinPress('8')">8</button>
+      <button class="pin-btn" onclick="pinPress('9')">9</button>
+      <button class="pin-btn del" onclick="pinDel()">⌫</button>
+      <button class="pin-btn" onclick="pinPress('0')">0</button>
+      <button class="pin-btn ok" id="pinOk" onclick="pinSubmit()">✓</button>
+    </div>
+
+    <div class="pin-error" id="pinError"></div>
   </div>
-  <div class="i-title">Tớ có điều<br>muốn nói với cậu...</div>
-  <div class="i-tap">✨ Chạm để xem ✨</div>
 </div>
 
 <!-- ========================
@@ -589,10 +771,17 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
           <div class="h-ring1"></div>
           <div class="h-ring2"></div>
           <div class="h-gap"></div>
-          <div class="h-frame">
+          <!-- Input ẩn cho hero -->
+          <input type="file" id="heroInput" accept="image/*"
+            style="display:none" onchange="handleHeroUpload(this.files)">
+          <div class="h-frame" onclick="document.getElementById('heroInput').click()">
             <img id="heroImg" src="img/man.jpg" alt=""
               onerror="this.style.display='none';document.getElementById('heroEmpty').style.display='flex'">
             <div class="h-empty" id="heroEmpty" style="display:none">📷</div>
+            <div class="h-upload-hint">
+              <span style="font-size:1.4rem">📸</span>
+              Đổi ảnh
+            </div>
           </div>
         </div>
 
@@ -611,45 +800,76 @@ html, body { width:100%; height:100%; overflow:hidden; background:#080014; }
     <div class="slide" id="slide2">
       <div class="sphere-slide-inner">
 
-        <div class="sphere-title">💫 Ban đầu mình định nhắn tin với cậu và tìm cách xin mỗi ngày 1 ảnh cơ</div>
-        <div class="sphere-sub">🖐 Kéo để xoay · Bấm ảnh để xem to- nếu cậu không thích hoặc thấy mình phiền thì dừng ở trang này cho mình nhé!</div>
+        <div class="sphere-title">💫 Kỷ niệm của chúng mình</div>
+        <div class="sphere-sub">🖐 Kéo để xoay · Bấm ảnh để xem to</div>
 
-        <div id="sphereWrap">
-          <div id="sphereEmpty" class="sphere-empty-msg" style="display:none">
-            📁 Đặt ảnh vào thư mục <strong>img/</strong><br>
-            rồi chạy <strong>generate-photos.ps1</strong><br>
-            để ảnh hiện lên đây 🌐
+        <!-- Input file ẩn -->
+        <input type="file" id="photoInput" accept="image/*" multiple
+          style="display:none" onchange="handleUpload(this.files)">
+
+        <div id="sphereWrap" style="position:relative">
+          <!-- Hiện khi chưa có ảnh -->
+          <div id="sphereEmpty" style="display:none; flex-direction:column;
+            align-items:center; gap:18px; padding:20px; width:280px">
+            <div style="color:rgba(255,150,180,.55); font-family:'Dancing Script',cursive;
+              font-size:1.3rem; text-align:center; line-height:1.6">
+              Cậu có thể thêm ảnh<br>vào đây 🌸
+            </div>
+            <button class="upload-btn" onclick="document.getElementById('photoInput').click()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              Chọn ảnh từ máy
+            </button>
           </div>
+
+          <!-- Nút + nhỏ khi đã có ảnh -->
+          <button class="upload-fab" id="uploadFab"
+            style="display:none"
+            onclick="document.getElementById('photoInput').click()"
+            title="Thêm ảnh">+</button>
         </div>
 
       </div>
     </div><!-- /slide2 -->
 
-    <!-- SLIDE 3: TỎ TÌNH -->
+    <!-- SLIDE 3: TÂM SỰ + TỎ TÌNH -->
     <div class="slide" id="slide3">
       <div class="slide-inner">
 
         <div class="s-emoji">💌</div>
-        <div class="s-title" style="font-size:clamp(1.8rem,5.5vw,2.8rem)">Lời tỏ tình</div>
+        <div class="s-title" style="font-size:clamp(1.8rem,5.5vw,2.8rem)">Tớ muốn nói với cậu...</div>
         <div class="divider"></div>
 
-        <!-- Timeline -->
-        <div class="timeline" id="tlContainer"></div>
+        <!-- Tâm sự cards -->
+        <div id="tamsuContainer" style="width:100%"></div>
 
         <!-- Confession -->
         <div class="conf-card" id="confCard">
           <div id="confMain">
             <div class="conf-q" id="confQ"></div>
             <div class="conf-btns" id="confBtns">
-              <button class="btn-yes" onclick="handleYes()">💖 Có! Tớ đồng ý!</button>
+              <button class="btn-yes" onclick="handleYes()">🌸 Có, cho cậu cơ hội đó!</button>
               <button class="btn-no" id="btnNo"
                 onmouseenter="runAway()"
                 ontouchstart="runAway()">Để mình nghĩ đã...</button>
             </div>
           </div>
           <div class="conf-result" id="confResult">
-            <span class="res-emoji">🥰💖🎊</span>
+            <span class="res-emoji">🥰🌸✨</span>
             <div class="res-text" id="resText"></div>
+          </div>
+          <div class="conf-result" id="confResultNo" style="display:none">
+            <span class="res-emoji">💙🌿</span>
+            <div class="res-text" style="font-family:'Dancing Script',cursive;font-size:clamp(1.2rem,4vw,1.8rem);color:#ffe0ec">
+              Cảm ơn cậu vì đã đồng hành cùng mình những ngày qua 💙<br><br>
+              <span style="font-size:clamp(.9rem,3vw,1.1rem);color:rgba(255,200,230,.75);font-family:'Quicksand',sans-serif">
+                Dù thế nào mình cũng trân trọng cậu rất nhiều.
+              </span>
+            </div>
           </div>
         </div>
 
@@ -692,23 +912,45 @@ const HERO_IMG  = 'img/man.jpg';  // Ảnh chính (đặt tên file đúng)
 
 const MESSAGE = `Chúc ${NAME} sinh nhật thật vui và hạnh phúc! 🌸
 
-Đáng lẽ cái này mình muốn để tạo bất ngờ cho cậu lúc sinh nhật cơ, nhưng mà thật sự như mô tả tớ viết trong game:
-"tớ đang phân vân giữa việc tiếp tục hay là dừng lại, cậu như 1 cơn gió vậy khi gần khi xa, đôi lúc tớ cảm thấy rất gần cậu nhưng đôi lúc tớ cảm thấy thật xa."
-Tớ là 1 con người lý trí trong công việc nhưng lại rất cảm xúc trong tình cảm nên thích cậu khiến trái tim tớ đang bị điều khiển bởi cậu, cậu làm tớ thật sự không biết như nào.
-Tớ không biết cậu có thích tớ và muốn tớ tham gia vào cuộc sống thật sự của cậu không thay vì như hiện tại💕
+Tớ không rõ là ngoài đời cậu như nào, tớ cũng không biết là cậu vì sao mà không muốn cho tớ biết thông tin ngoài đời của cậu.
+Tớ cũng biết cậu muốn che giấu mình thông tin ngoài đời vì 1 số vấn đề, nhưng nếu được cậu có thể thành thật với mình (vì có thể mình biết vấn đề đó là gì),
+nên mình không để ảnh cậu đâu cậu tự tải lên nhớ ><
+Tớ chỉ biết rằng mình muốn được tham gia vào cuộc sống của cậu, được cùng cậu khám phá và tìm hiểu nhau nhiều hơn mỗi ngày 💕
 
 Ngày hôm nay — tớ muốn nói thật lòng...  🌹`;
 
-const CONFESSION = `Minh Châu ơi... Tớ thích cậu thật rồi.\n Cậu có muốn làm người yêu của mình không? 🥺`;
+const CONFESSION = `Mình muốn được tìm hiểu về cậu nhiều hơn...
+ Cậu có muốn cho mình cơ hội đó không? 🌸`;
 
-const YES_REPLY  = `Cậu đồng ý rồi! Mình là người hạnh phúc nhất thế giới!\nMãi mãi yêu cậu! 💖💖💖`;
+const YES_REPLY  = `Cảm ơn cậu đã cho mình cơ hội đó! 🌸
+Mình hứa sẽ trân trọng từng giây phút bên cậu. 💖`;
 
-const TIMELINE_ITEMS = [
-  { icon:'🌟', tag:'Lần đầu tiên cảm thấy thích cậu',     desc:'Mình không nhớ rõ nữa nhưng chắc lúc xác định là lúc Khải nhắn tin bảo cậu thích mình...' },
-  { icon:'💬', tag:'Những tin nhắn', desc:'Lúc đầu mình cũng ít chơi game cùng để ý, nhưng rồi hằng ngày mình vào game chỉ để chờ cậu onl. 🥰' },
-  { icon:'😊', tag:'Khi mình nhận ra',        desc:'Cậu đã chiếm trọn cảm xúc về yêu và thích của mình, chờ tin nhắn của cậu chỉ muốn biết và hiểu thêm về cậu. 💗' },
-  { icon:'🌹', tag:'Ngày hôm nay',           desc:'Mình muốn biết tất cả về cậu, muốn được tham gia cuộc sống của cậu💖' },
-  { icon:'🥰', tag:'Cậu nghĩ sao',           desc:'Nếu cậu thấy mình như nào thì có thể nói rõ được không? Mình thật sự không biết cậu nghĩ gì về mình hay như thế nào. Và nếu không muốn cậu không cần kéo xuống và trả lời mình được không.' },
+// Mã PIN = ngày sinh của người nhận (DDMMYYYY)
+const PIN = '10072007'; // ← Đổi thành ngày sinh thật ở đây
+const PIN_LEN = PIN.length; // tự động theo độ dài PIN
+
+// Nội dung tâm sự — chỉnh sửa tại đây
+const TAMSU_ITEMS = [
+  {
+    icon: '🌟',
+    title: 'Lần đầu tiên',
+    text: `Mình không nhớ rõ là quen biết cậu như nào, nhưng mà cũng gần 1 năm kết bạn rồi`
+  },
+  {
+    icon: '💬',
+    title: 'Những tin nhắn',
+    text: `Những tin nhắn của cậu dành cho mình, mình cảm thấy rất vui mặc dù dạo này cậu khá làm mình bực mình 🥰`
+  },
+  {
+    icon: '😊',
+    title: 'Khi mình nhận ra',
+    text: `Mình biết là cậu sợ mình vì cậu giấu mình điều gì (có thể mình biết điều đó là gì) mình chỉ mong cậu có thể thành thật với mình hơn 💗`
+  },
+  {
+    icon: '🌹',
+    title: 'Và ngày hôm nay...',
+    text: `Mình muốn được tham gia vào cuộc sống của cậu, được cùng cậu tìm hiểu nhau nhiều hơn — không phải từ xa như hiện tại, mà là thật sự có mặt bên cậu. 💖`
+  },
 ];
 /* ============================================================ */
 
@@ -718,18 +960,77 @@ document.getElementById('msgText').textContent  = MESSAGE;
 document.getElementById('confQ').innerHTML      = CONFESSION.replace(/\n/g,'<br>');
 document.getElementById('resText').innerHTML    = YES_REPLY.replace(/\n/g,'<br>');
 
-// Build timeline
-const tlContainer = document.getElementById('tlContainer');
-TIMELINE_ITEMS.forEach((item, i) => {
-  const isLast = i === TIMELINE_ITEMS.length - 1;
-  tlContainer.innerHTML += `
-    <div class="tl-item" ${isLast?'style="margin-bottom:0"':''}>
-      <div class="tl-dot">${item.icon}</div>
-      <div class="tl-box">
-        <div class="tl-tag">${item.tag}</div>
-        <div class="tl-desc">${item.desc}</div>
-      </div>
+// Build pin dots
+const pinDotsEl = document.getElementById('pinDots');
+for(let i=0;i<PIN_LEN;i++){
+  const d=document.createElement('div'); d.className='pin-dot'; d.id='pd'+i;
+  pinDotsEl.appendChild(d);
+}
+
+// Build tâm sự cards
+const tamsuContainer = document.getElementById('tamsuContainer');
+TAMSU_ITEMS.forEach(item => {
+  tamsuContainer.innerHTML += `
+    <div class="tamsu-card">
+      <span class="tamsu-icon">${item.icon}</span>
+      <div class="tamsu-title">${item.title}</div>
+      <div class="tamsu-text">${item.text}</div>
     </div>`;
+});
+
+/* ===== PIN HANDLER ===== */
+let pinValue = '';
+
+function pinPress(digit){
+  if(pinValue.length >= PIN_LEN) return;
+  pinValue += digit;
+  document.getElementById('pd'+(pinValue.length-1)).classList.add('filled');
+  // Enable OK button when full
+  document.getElementById('pinOk').classList.toggle('ready', pinValue.length === PIN_LEN);
+  // Clear error
+  document.getElementById('pinError').textContent = '';
+}
+
+function pinDel(){
+  if(!pinValue.length) return;
+  pinValue = pinValue.slice(0,-1);
+  document.querySelectorAll('.pin-dot').forEach((d,i) => d.classList.toggle('filled', i < pinValue.length));
+  document.getElementById('pinOk').classList.remove('ready');
+  document.getElementById('pinError').textContent = '';
+}
+
+function pinSubmit(){
+  if(pinValue.length < PIN_LEN) return;
+  if(pinValue === PIN){
+    // Đúng → vào app
+    // document.getElementById('pinError').textContent = '✓ Đúng rồi! 🌸';
+    // document.getElementById('pinError').style.color = '#a8ff78';
+    // setTimeout(enterApp, 700);
+  } else {
+    // Sai → rung + xóa
+    const errEl = document.getElementById('pinError');
+    errEl.style.color = '#ff6b9d';
+    errEl.textContent = 'Sai mật khẩu rồi cậu ơi 🥺';
+    errEl.style.animation = 'none';
+    void errEl.offsetWidth; // reflow
+    errEl.style.animation = 'pinShake .4s ease';
+    // Rung dots
+    pinDotsEl.style.animation='none'; void pinDotsEl.offsetWidth;
+    pinDotsEl.style.animation='pinShake .4s ease';
+    // Xóa input sau 600ms
+    setTimeout(()=>{
+      pinValue='';
+      document.querySelectorAll('.pin-dot').forEach(d=>d.classList.remove('filled'));
+      document.getElementById('pinOk').classList.remove('ready');
+    }, 600);
+  }
+}
+
+// Keyboard support
+document.getElementById('intro').addEventListener('keydown', e=>{
+  if(e.key>='0'&&e.key<='9'){ pinPress(e.key); }
+  else if(e.key==='Backspace'){ pinDel(); }
+  else if(e.key==='Enter'){ pinSubmit(); }
 });
 
 /* ===== STAR CANVAS ===== */
@@ -870,8 +1171,15 @@ function buildSphere() {
   SP.items=[];
 
   const srcs=window.PHOTOS||[];
-  if(!srcs.length){ empty.style.display='block'; wrap.style.width=wrap.style.height='300px'; return; }
+  const fab = document.getElementById('uploadFab');
+  if(!srcs.length){
+    empty.style.display='flex';
+    wrap.style.width=wrap.style.height='300px';
+    if(fab) fab.style.display='none';
+    return;
+  }
   empty.style.display='none';
+  if(fab) fab.style.display='flex';
 
   const {sz,r,iSz}=sphSize();
   wrap.style.width=sz+'px'; wrap.style.height=sz+'px';
@@ -974,12 +1282,12 @@ const NO_MSGS = [
 ];
 
 function handleYes(){
-  // Ẩn nút No ngay lập tức (dù đang ở trong card hay đang bay tự do trên màn hình)
+  // Ẩn nút No ngậy lập tức
   const btnNo = document.getElementById('btnNo');
   if(btnNo){ btnNo.style.opacity='0'; btnNo.style.transform='scale(0)'; setTimeout(()=>btnNo.remove(), 400); }
   document.getElementById('confMain').style.display='none';
   document.getElementById('confResult').style.display='block';
-  launchFireworks(); launchMassHearts(); showToast('🎉 Em đồng ý rồi! 💖');
+  launchFireworks(); launchMassHearts(); showToast('🌸 Cảm ơn cậu! Mình thấy hạnh phúc lắm! 💖');
 }
 
 function runAway(){
@@ -1021,14 +1329,42 @@ function runAway(){
   showToast(NO_MSGS[noCount - 1]);
 
   if(noCount >= NO_SCALES.length){
-    // Đợi thêm chút để user thấy vị trí cuối rồi mới tan
+    // Sau 5 lần từ chối → hiện lời cảm ơn
     setTimeout(()=>{
       btn.style.opacity   = '0';
       btn.style.transform = 'scale(0)';
-      showToast('Nút "Từ chối" tan biến rồi! 😂💫');
-      setTimeout(()=>{ btn.remove(); }, 500);
+      setTimeout(()=>{
+        btn.remove();
+        // Hiện card cảm ơn thay thế
+        document.getElementById('confMain').style.display = 'none';
+        const noCard = document.getElementById('confResultNo');
+        if(noCard) noCard.style.display = 'block';
+        showToast('💙 Cảm ơn cậu vì đã xem tới đây...');
+      }, 500);
     }, 800);
   }
+}
+
+/* ===== UPLOAD HANDLER ===== */
+function handleUpload(files) {
+  if(!files || !files.length) return;
+  const newUrls = Array.from(files).map(f => URL.createObjectURL(f));
+  window.PHOTOS = (window.PHOTOS || []).concat(newUrls);
+  buildSphere();
+  document.getElementById('uploadFab').style.display = 'flex';
+  showToast(`✨ Đã thêm ${newUrls.length} ảnh!`);
+  document.getElementById('photoInput').value = '';
+}
+
+function handleHeroUpload(files) {
+  if(!files || !files.length) return;
+  const url = URL.createObjectURL(files[0]);
+  const img = document.getElementById('heroImg');
+  img.style.display = 'block';
+  img.src = url;
+  document.getElementById('heroEmpty').style.display = 'none';
+  document.getElementById('heroInput').value = '';
+  showToast('🌸 Đã cập nhật ảnh!');
 }
 
 /* ===== PETALS ===== */
@@ -1122,9 +1458,7 @@ function enterApp(){
     showArrowsInitial(); // Show nav arrow after 3s
   },600);
 }
-document.getElementById('intro').addEventListener('keydown',e=>{
-  if(e.key==='Enter'||e.key===' ')enterApp();
-});
+// Keyboard PIN handled above
 
 // Restore arrow brightness on any interaction
 [arrowPrev, arrowNext].forEach(btn=>{
